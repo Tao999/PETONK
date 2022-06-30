@@ -13,9 +13,12 @@ public class controls : MonoBehaviour
 
     State state = State.SNIPING;
 
+    public GameObject projectile;
+
     public float sensitivity = 10;
     Transform slider = null;
     Animation my_animation = null;
+    Transform pivot = null;
 
     float force = 0;
     // Start is called before the first frame update
@@ -23,6 +26,7 @@ public class controls : MonoBehaviour
     {
         slider = transform.GetChild(0).GetChild(0);
         my_animation = transform.GetChild(1).GetComponent<Animation>();
+        pivot = transform.GetChild(1);
     }
 
     void ChangeState(State s)
@@ -31,7 +35,7 @@ public class controls : MonoBehaviour
         switch (state)
         {
             case State.SNIPING:
-                Sniping();
+                force = 0;
                 break;
             case State.SHOOTING:
                 my_animation.Play();
@@ -59,10 +63,12 @@ public class controls : MonoBehaviour
 
     void Shooting()
     {
-        if (!my_animation.IsPlaying("PeroAnim"))
+        if (!my_animation.isPlaying)
         {
             //la il faut tirer
-            print("skdfksjfk");
+            var my_proj = Instantiate(projectile, pivot.GetChild(0).transform.position, Quaternion.identity);
+            my_proj.GetComponent<Rigidbody>().AddForce(pivot.GetChild(0).rotation.eulerAngles * 5);
+            ChangeState(State.SNIPING);
         }
     }
 
