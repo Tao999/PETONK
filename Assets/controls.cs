@@ -66,8 +66,13 @@ public class controls : MonoBehaviour
         if (!my_animation.isPlaying)
         {
             //la il faut tirer
-            var my_proj = Instantiate(projectile, pivot.GetChild(0).transform.position, Quaternion.identity);
-            my_proj.GetComponent<Rigidbody>().AddForce(pivot.GetChild(0).rotation.eulerAngles * 5);
+            var my_proj = Instantiate(projectile, pivot.GetChild(0).transform.position, pivot.GetChild(0).transform.rotation);
+            Vector3 dir = pivot.GetChild(0).transform.rotation.eulerAngles;
+            //float temp = dir.x;
+            //dir.x = dir.y;
+            //dir.y = dir.z;
+            //dir.z = temp;
+            my_proj.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 600 * force);
             ChangeState(State.SNIPING);
         }
     }
@@ -75,6 +80,7 @@ public class controls : MonoBehaviour
 
     void Sniping()
     {
+        print(pivot.GetChild(0).transform.rotation.eulerAngles);
         if (Input.GetMouseButton(0))
         {
             force += Time.deltaTime;
