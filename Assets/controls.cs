@@ -24,6 +24,7 @@ public class controls : MonoBehaviour
     Transform pivot = null;
 
     float force = 0;
+    float time = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +52,17 @@ public class controls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (time > 0f){
+            // Subtract the difference of the last time the method has been called
+            time -= Time.deltaTime;
+        }
+
+        if (Input.GetKey(KeyCode.Space )&& time <= 0)
+        {
+            changeCameraPositionWhenShooting();
+            time = 0.2f;
+        }
+
         switch (state)
         {
             case State.SNIPING:
@@ -79,7 +91,7 @@ public class controls : MonoBehaviour
             
             my_proj.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 600 * force);
             ChangeState(State.SNIPING);
-            changeCameraPositionWhenShooting();
+            //changeCameraPositionWhenShooting();
 
         }
     }
@@ -117,9 +129,6 @@ public class controls : MonoBehaviour
 
         playerCamera.enabled = !playerCamera.enabled;
         mainCamera.enabled = !playerCamera.enabled;
-
-
-
 
     }
 
