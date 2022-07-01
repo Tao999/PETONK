@@ -11,6 +11,9 @@ public class controls : MonoBehaviour
         IDLE
     }
 
+    private Camera playerCamera;
+    private Camera mainCamera;
+
     State state = State.SNIPING;
 
     public GameObject projectile;
@@ -55,6 +58,7 @@ public class controls : MonoBehaviour
                 break;
             case State.SHOOTING:
                 Shooting();
+                
                 break;
             default:
                 break;
@@ -72,8 +76,11 @@ public class controls : MonoBehaviour
             //dir.x = dir.y;
             //dir.y = dir.z;
             //dir.z = temp;
+            
             my_proj.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 600 * force);
             ChangeState(State.SNIPING);
+            changeCameraPositionWhenShooting();
+
         }
     }
 
@@ -100,6 +107,20 @@ public class controls : MonoBehaviour
         }
         float rotateHorizontal = Input.GetAxis("Mouse X");
         transform.RotateAround(transform.position, -Vector3.up, rotateHorizontal * sensitivity);
+    }
+
+    void changeCameraPositionWhenShooting()
+    {
+     
+        playerCamera = GameObject.Find("Camera").GetComponent<Camera>();
+        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+
+        playerCamera.enabled = !playerCamera.enabled;
+        mainCamera.enabled = !playerCamera.enabled;
+
+
+
+
     }
 
 }
