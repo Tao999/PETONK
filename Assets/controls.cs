@@ -74,6 +74,7 @@ public class controls : MonoBehaviour
             //dir.z = temp;
             my_proj.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 600 * force);
             ChangeState(State.SNIPING);
+            Debug.Log("Tir");
         }
     }
 
