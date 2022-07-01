@@ -70,7 +70,6 @@ public class controls : MonoBehaviour
                 break;
             case State.SHOOTING:
                 Shooting();
-                
                 break;
             default:
                 break;
@@ -79,6 +78,7 @@ public class controls : MonoBehaviour
 
     void Shooting()
     {
+        Debug.Log("shoot");
         if (!my_animation.isPlaying)
         {
             //la il faut tirer
@@ -91,15 +91,17 @@ public class controls : MonoBehaviour
             
             my_proj.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 600 * force);
             ChangeState(State.SNIPING);
-            //changeCameraPositionWhenShooting();
-
+            while (my_proj.GetComponent<Rigidbody>().velocity.magnitude > 0.01f)
+            {
+                Debug.Log("je passe");
+                //Block shoot
+            }
         }
     }
 
 
     void Sniping()
     {
-        print(pivot.GetChild(0).transform.rotation.eulerAngles);
         if (Input.GetMouseButton(0))
         {
             force += Time.deltaTime;
