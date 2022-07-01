@@ -18,6 +18,9 @@ public class controls : MonoBehaviour
 
     public GameObject projectile;
 
+    public GameObject cochonnet;
+    bool firstShoot;
+
     public float sensitivity = 10;
     Transform slider = null;
     Animation my_animation = null;
@@ -28,6 +31,7 @@ public class controls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        firstShoot = true;
         slider = transform.GetChild(0).GetChild(0);
         my_animation = transform.GetChild(1).GetComponent<Animation>();
         pivot = transform.GetChild(1);
@@ -82,20 +86,20 @@ public class controls : MonoBehaviour
         if (!my_animation.isPlaying)
         {
             //la il faut tirer
-            var my_proj = Instantiate(projectile, pivot.GetChild(0).transform.position, pivot.GetChild(0).transform.rotation);
+            GameObject my_proj;
+            if (firstShoot)
+            {
+                my_proj = Instantiate(GameObject.Find("Cochonet"), pivot.GetChild(0).transform.position, pivot.GetChild(0).transform.rotation);
+            } else
+            {
+                my_proj = Instantiate(projectile, pivot.GetChild(0).transform.position, pivot.GetChild(0).transform.rotation);
+            }
+
             Vector3 dir = pivot.GetChild(0).transform.rotation.eulerAngles;
-            //float temp = dir.x;
-            //dir.x = dir.y;
-            //dir.y = dir.z;
-            //dir.z = temp;
-            
             my_proj.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 600 * force);
             ChangeState(State.SNIPING);
-            while (my_proj.GetComponent<Rigidbody>().velocity.magnitude > 0.01f)
-            {
-                Debug.Log("je passe");
-                //Block shoot
-            }
+            firstShoot = false;
+            //while (my_proj.GetComponent<Rigidbody>().velocity.magnitude > 0.01f)
         }
     }
 

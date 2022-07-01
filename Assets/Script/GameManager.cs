@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     public static GameManager Instance;
+    GameObject[] Boules;
 
     private void Awake() {
         Instance = this;
@@ -19,6 +20,17 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
+        Boules = GameObject.FindGameObjectsWithTag("Boule");
+        if (GameObject.Find("Cochonet") != null)
+        {
+            var cochonet = GameObject.Find("Cochonet");
+            foreach (GameObject boule in Boules)
+            {
+                var position = boule.transform.position;
+                Debug.Log(position);
+            }
+        }
+
+
     }
 }
