@@ -413,6 +413,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Boule de p\xE9tanque"
       objectReference: {fileID: 0}
+    - target: {fileID: 54588010246837107, guid: 51e402ee12f41d04bafc9451dd9c0af0, type: 3}
+      propertyPath: m_TagString
+      value: Boule
+      objectReference: {fileID: 0}
     - target: {fileID: 1434367439312154975, guid: 51e402ee12f41d04bafc9451dd9c0af0, type: 3}
       propertyPath: m_RootOrder
       value: 9

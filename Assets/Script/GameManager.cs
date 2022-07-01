@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance;
     GameObject[] Boules;
+    float minDist = Mathf.Infinity;
 
     private void Awake() {
         Instance = this;
@@ -23,14 +24,20 @@ public class GameManager : MonoBehaviour {
         Boules = GameObject.FindGameObjectsWithTag("Boule");
         if (GameObject.Find("Cochonet") != null)
         {
-            var cochonet = GameObject.Find("Cochonet");
+            var cochonnet = GameObject.Find("Cochonet");
+            var positionCochonnet = cochonnet.transform.position;
+            GameObject boulePlusProche;
             foreach (GameObject boule in Boules)
             {
-                var position = boule.transform.position;
-                Debug.Log(position);
+                float dist = Vector3.Distance(boule.transform.position, positionCochonnet);
+                if (dist < minDist)
+                {
+                    boulePlusProche = boule;
+                    boulePlusProche.GetComponent<Renderer>().material.color = new Color(545, 124, 54);
+                    minDist = dist;
+                }
             }
+            
         }
-
-
     }
 }
