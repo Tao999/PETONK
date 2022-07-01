@@ -8,7 +8,7 @@ public class ChangementScene : MonoBehaviour
 
     public void playGame()
     {
-        SceneManager.LoadScene("scene thomas");
+        SceneManager.LoadScene("terrain");
     }
 
     public void exitGame()
