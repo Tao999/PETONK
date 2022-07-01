@@ -82,7 +82,6 @@ public class controls : MonoBehaviour
 
     void Shooting()
     {
-        Debug.Log("shoot");
         if (!my_animation.isPlaying)
         {
             //la il faut tirer
